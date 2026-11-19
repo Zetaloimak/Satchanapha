@@ -1,0 +1,181 @@
+/* ===== พรรคสัจจะนภา: full stylesheet (red and white, PTS-style motion) ===== */
+:root{
+  color-scheme:light;
+  --red:#D7192D;--red-deep:#A10E1F;
+  --grad:linear-gradient(135deg,#F2384B 0%,#C8102E 100%);
+  --ink:#1A1213;--muted:#776A6C;--line:#F3DCDF;--tint:#FFF3F4;
+  --radius:24px;--ease:cubic-bezier(.2,.7,.2,1);
+  --display:"Unbounded","Prompt",system-ui,sans-serif;
+  --body:"Archivo","Prompt",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{font-family:var(--body);background:#fff;color:var(--ink);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+::selection{background:var(--red);color:#fff}
+h1,h2,h3{font-family:var(--display);line-height:1.25}
+h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:900;letter-spacing:-.01em;margin-bottom:40px;color:var(--ink)}
+h3{font-size:1.2rem;font-weight:700;margin-bottom:10px}
+p{margin:0}
+.wrap{width:min(1120px,90%);margin-inline:auto}
+section{padding:clamp(72px,10vw,120px) 0;scroll-margin-top:96px}
+
+/* ---------- scroll progress bar ---------- */
+.progress{position:fixed;top:0;left:0;right:0;height:4px;background:var(--grad);transform:scaleX(0);transform-origin:0 50%;z-index:100}
+
+/* ---------- floating pill navbar ---------- */
+.topbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(94%,1100px);padding:8px 8px 8px 20px;border-radius:999px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);border:1px solid var(--line);z-index:50;transition:background .3s,box-shadow .3s}
+.topbar.scrolled{background:rgba(255,255,255,.94);box-shadow:0 12px 40px -18px rgba(26,18,19,.25)}
+.topbar .wrap{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;letter-spacing:.02em}
+.logo{width:9px;height:9px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(215,25,45,.2)}50%{box-shadow:0 0 0 9px rgba(215,25,45,.04)}}
+.nav-links{display:flex;gap:4px}
+.nav-links a{display:block;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);transition:background .25s,color .25s}
+.nav-links a:hover,.nav-links a.active{background:var(--tint);color:var(--red-deep)}
+
+/* three-line button: turns into an X when open */
+.menu-btn{display:none;position:relative;width:44px;height:44px;margin-left:auto;border-radius:50%;background:var(--tint);transition:transform .2s var(--ease)}
+.menu-btn:active{transform:scale(.9)}
+.menu-btn span{position:absolute;left:13px;right:13px;height:2px;border-radius:2px;background:var(--ink);transition:transform .3s var(--ease),opacity .2s,top .3s var(--ease)}
+.menu-btn span:nth-child(1){top:15px}
+.menu-btn span:nth-child(2){top:21px}
+.menu-btn span:nth-child(3){top:27px}
+.menu-btn.is-open span:nth-child(1){top:21px;transform:rotate(45deg)}
+.menu-btn.is-open span:nth-child(2){opacity:0}
+.menu-btn.is-open span:nth-child(3){top:21px;transform:rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:150px 0 130px;overflow:hidden;isolation:isolate;background:#fff}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 60% 40%,#000 15%,transparent 70%);mask-image:radial-gradient(ellipse at 60% 40%,#000 15%,transparent 70%)}
+.hero h1{font-size:clamp(3rem,11vw,9rem);font-weight:900;line-height:1.25;letter-spacing:-.01em;color:var(--red-deep)}
+.hero-slogan{margin-top:24px;font-family:var(--display);font-size:clamp(1.1rem,2.4vw,1.5rem);font-weight:700}
+.hero-lead{max-width:36em;margin-top:14px;color:var(--muted);font-size:1.05rem}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;z-index:-1;pointer-events:none;animation:float 14s ease-in-out infinite}
+.b1{width:460px;height:460px;background:var(--red);top:-140px;right:-120px}
+.b2{width:360px;height:360px;background:#FFC2C8;bottom:-120px;left:-80px;animation-delay:-6s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.08)}}
+.scroll-hint{position:absolute;bottom:28px;left:6vw;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.scroll-hint::after{content:"";width:2px;height:24px;border-radius:2px;background:linear-gradient(var(--red),transparent);animation:drop 1.6s var(--ease) infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}60%{transform:scaleY(1);transform-origin:top}61%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* hero intro: title, slogan, text and buttons rise in one after another */
+@keyframes heroRise{from{opacity:0;translate:0 28px;filter:blur(6px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+.js .hero .wrap>*{animation:heroRise 1s var(--ease) both}
+.js .hero .wrap>:nth-child(2){animation-delay:.12s}
+.js .hero .wrap>:nth-child(3){animation-delay:.24s}
+.js .hero .wrap>:nth-child(4){animation-delay:.36s}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 30px;border:2px solid var(--red);border-radius:999px;background:#fff;color:var(--red-deep);font-weight:700;font-size:16px;box-shadow:0 14px 30px -14px rgba(200,16,46,.6);transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-3px);background:var(--tint);box-shadow:0 20px 40px -14px rgba(200,16,46,.7)}
+.btn:active{transform:scale(.98)}
+.btn-line{border-color:var(--ink);color:var(--ink);box-shadow:none}
+.btn-line:hover{background:var(--tint);box-shadow:none}
+
+/* ---------- ticker band ---------- */
+.ticker{background:var(--tint);color:var(--red-deep);overflow:hidden;white-space:nowrap;transform:rotate(-1.5deg);margin:40px -2vw;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);box-shadow:0 14px 30px -18px rgba(200,16,46,.5)}
+.ticker-run{display:flex;width:max-content;animation:ticker 30s linear infinite}
+.ticker-group{display:flex}
+.ticker-group span{display:flex;align-items:center;padding:0 28px;font-family:var(--display);font-weight:700;font-size:14px}
+.ticker-group span::after{content:"✦";margin-left:28px;color:var(--red)}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* ---------- goals ---------- */
+.goals{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.goals li,.policy,.member,.join-form{border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.goals li,.policy,.member{position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.goals li{padding:28px}
+.goals h3{color:var(--red-deep)}
+.goals p,.policy p{color:var(--muted)}
+.goals li:hover,.policy:hover,.member:hover{transform:translateY(-6px);border-color:rgba(215,25,45,.35);box-shadow:0 26px 50px -28px rgba(200,16,46,.55)}
+
+/* ---------- policies: first tile is wide, last tile fills the final row ---------- */
+.policy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.policy{padding:28px}
+.policy:first-child{grid-column:span 2;background:linear-gradient(160deg,#fff 40%,var(--tint))}
+.policy:first-child h3{font-size:1.6rem}
+.policy:last-child{grid-column:span 3}
+
+/* ---------- members ---------- */
+.member-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.member{display:flex;flex-direction:column;align-items:flex-start;padding:26px 24px}
+.avatar{display:grid;place-items:center;width:64px;height:64px;margin-bottom:14px;border-radius:20px;background:var(--tint);color:var(--red-deep);font-family:var(--display);font-size:20px;font-weight:900;box-shadow:0 12px 24px -12px rgba(200,16,46,.5)}
+.member .role{color:var(--red-deep);font-weight:700;font-size:.95rem}
+
+/* ---------- glow that follows the cursor on cards ---------- */
+.goals li>*,.policy>*,.member>*{position:relative;z-index:1}
+.goals li::after,.policy::after,.member::after{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(215,25,45,.1),transparent 70%)}
+.goals li:hover::after,.policy:hover::after,.member:hover::after{opacity:1}
+
+/* ---------- join form ---------- */
+#join{background:var(--tint)}
+.join-form{display:grid;gap:20px;max-width:680px;padding:36px}
+.field label{display:block;margin-bottom:6px;font-weight:600;font-size:.95rem}
+.field input:not([type="checkbox"]){width:100%;padding:13px 16px;font:inherit;font-size:1.05rem;color:var(--ink);background:#FFFCFC;border:1.5px solid var(--line);border-radius:16px;transition:border-color .2s,box-shadow .2s}
+.field input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 4px var(--tint)}
+.field input.invalid{border-color:var(--red)}
+.err{display:block;min-height:1.3em;margin-top:4px;font-size:.85rem;color:var(--red-deep)}
+.check{display:flex;align-items:flex-start;gap:12px}
+.check label{margin:0;font-weight:500}
+.check input{margin-top:6px;width:18px;height:18px;accent-color:var(--red)}
+.join-form .btn{justify-self:start}
+.form-msg{min-height:1.5em;font-weight:600}
+.form-msg.error{color:var(--red-deep)}
+.form-msg.success{color:var(--ink)}
+
+/* ---------- footer ---------- */
+footer{background:#fff;border-top:1px solid var(--line);padding:56px 0 64px}
+footer p{margin:6px 0;color:var(--muted)}
+
+/* ---------- scroll animation: app.js adds .anim, then .in when visible ---------- */
+.anim{opacity:.25;translate:0 32px}
+.anim.in{animation:rise .9s var(--ease) var(--d,0s) both}
+@keyframes rise{from{opacity:.25;translate:0 32px}to{opacity:1;translate:0 0}}
+
+/* headings: a red line draws under each one */
+section h2{position:relative;width:fit-content;max-width:100%}
+.js section h2::after{content:"";position:absolute;left:0;bottom:-14px;width:72px;height:4px;border-radius:4px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) .25s}
+.js section h2.in::after{transform:scaleX(1)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1040px){
+  .member-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .policy-grid{grid-template-columns:1fr 1fr}
+  .policy:last-child{grid-column:span 2}
+  .goals{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .topbar{top:10px}
+  .menu-btn{display:block}
+  .nav-links{display:flex;flex-direction:column;gap:2px;position:absolute;top:calc(100% + 10px);left:0;right:0;padding:12px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 50px -20px rgba(215,25,45,.35);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-12px) scale(.98);transform-origin:top right;transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s}
+  .nav-links.open{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+  .nav-links a{padding:14px 16px;opacity:0;transform:translateX(-10px);transition:opacity .3s,transform .3s,background .25s,color .25s}
+  .nav-links.open a{opacity:1;transform:none}
+  .nav-links.open li:nth-child(1) a{transition-delay:.06s}
+  .nav-links.open li:nth-child(2) a{transition-delay:.12s}
+  .nav-links.open li:nth-child(3) a{transition-delay:.18s}
+  .nav-links.open li:nth-child(4) a{transition-delay:.24s}
+  .policy-grid{grid-template-columns:1fr}
+  .policy:first-child,.policy:last-child{grid-column:auto}
+  .hero{padding-top:130px}
+  .scroll-hint{display:none}
+  .join-form{padding:24px}
+}
+@media (max-width:480px){
+  .member-grid{grid-template-columns:1fr}
+}
+
+/* ---------- reduced motion: keep everything visible, no movement ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .anim,.anim.in{opacity:1;translate:none}
+  .js section h2::after{transform:scaleX(1)}
+}
